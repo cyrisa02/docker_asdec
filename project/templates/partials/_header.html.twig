@@ -1,0 +1,178 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('home.index')}}"><img src="{{ asset('assets/images/logo.png')}}" alt="Logo" style="max-width: 2rem; "></a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto">
+
+				{% if app.user %}
+					{% if is_granted('ROLE_ADMIN') %}
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Adultes</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_sport_index')}}">Activités sportives Adultes</a>
+								<a class="dropdown-item" href="{{ path('app_user_index')}} ">Gestion des utilisateurs adultes</a>
+								<a class="dropdown-item" href="{{ path('app_reregistration_index')}} ">Réinscriptions</a>
+
+
+								<a class="dropdown-item" href="{{ path('app_price_index')}}">Tarifs et au ticket</a>
+
+								<a class="dropdown-item" href="{{ path('app_register_board')}}">Créer des statuts Représentant du Bureau</a>
+
+								<a class="dropdown-item" href="{{ path('app_userpaiement_index')}}">Mise à zéro des paiements</a>
+
+
+							</div>
+						</li>
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Enfants</a>
+							<div class="dropdown-menu">
+
+								<a class="dropdown-item" href="{{ path('app_childsport_index')}}">Activités sportives Enfants</a>
+								<a class="dropdown-item" href="{{ path('app_child_index')}} ">Gestion des utilisateurs enfants</a>
+
+								<a class="dropdown-item" href="{{ path('app_price_index')}}">Tarifs et au ticket</a>
+
+							</div>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Objets Publicitaires</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_goodies_index')}}">Objets publicitaires</a>
+								<a class="dropdown-item" href="{{ path('app_order_index')}}">Gestion des commandes des Objets publicitaires</a>
+
+							</div>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_timecard1_index')}}">
+
+								Fiche de présence</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mailing</a>
+							<div class="dropdown-menu">
+
+								<a class="dropdown-item" href="{{ path('app_newsletter_new')}}">Création du mail
+								</a>
+
+
+								<a class="dropdown-item" href="{{ path('app_newsletter_index')}}">Envoi du mail et liste des mails</a>
+
+								<a class="dropdown-item" href="{{ path('app_category_index')}} ">Création d'un groupe d'envoi</a>
+
+
+							</div>
+						</li>
+
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_contact_index')}}">
+								Formulaire de contact</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_post_index')}}">
+								Mur de communication</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+
+
+					{% endif %}
+				{% endif %}
+				{% if app.user %}
+					{% if is_granted('ROLE_BOARD') %}
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_timecard1_new')}}">
+
+								Créer une feuille de présence</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_timecard1_index')}}">
+
+								Imprimer une feuille de présence</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Représentant</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_timecard_new')}}">Créer une feuille de présence</a>
+
+
+								<a class="dropdown-item" href="#">Imprimer une feuille de présence TODO</a>
+								<a class="dropdown-item" href="#">Imprimer une feuille de présence TODO pour le Yoga et le Pilates en mettant les tarifs au ticket</a>
+
+								<a class="dropdown-item" href="#">Supprimer un adhérent de la feuille de présence TODO</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Separated link</a>
+							</div>
+						</li>
+					{% endif %}
+				{% endif %}
+				{% if app.user %}
+					{% if is_granted('ROLE_MEMBER') %}
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_user_show',{'id':app.user.id})}}">
+								Mon profil</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_user_show_card',{'id':app.user.id})}}">
+
+								Ma carte</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_child_new')}}">
+								Inscrire un enfant</a>
+							<span class="visually-hidden">(current)</span>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_reregistration_edit',{'id':app.user.id})}}">
+
+								Réinscription Saison
+								{{ "now"|date("Y") +1  }}
+								/
+								{{ "now"|date("Y") +2 }}</a>
+
+							<span class="visually-hidden">(current)</span>
+						</li>
+					{% endif %}
+				{% endif %}
+
+			</ul>
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				{% if app.user %}
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_logout') }}">Me déconnecter</a>
+					</li>
+				{% else %}
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Mon Espace</a>
+					</li>
+
+				{% endif %}
+			</ul>
+
+
+		</div>
+	</div>
+</nav>

@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="container">
+		<p>Codes et adresses mail</p>
+		<p>Pour un adhérent: activite@gmail.com  code: azertyui</p>
+		<p>Pour un membre du CA: board@gmail.com  code: azertyui</p>
+		<p>Pour l'admin: cyrisa02.test@gmail.com  code: admin</p>
+	</div>
+
+
+	<div class="container mt-4 d-flex align-items-start">
+
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur le site de
+				<strong>l'ASDEC</strong>
+			</h1>
+			<img src="{{ asset('assets/images/logo.png')}}" alt="logo asdec" style="max-width: 12rem;" class="mx-auto d-block" data-aos="fade-right" data-aos-duration="50000">
+
+			<p class="lead">Ce site permet la gestion des membres de l'association de l'ASDEC.</p>
+			<a class="btn btn-primary btn-lg" href="{{ path('app_login')}}" role="button">Se connecter à son espace</a>
+
+
+			<hr class="my-4">
+			<img src="{{ asset('assets/images/yoga.jpg')}}" alt="activité sportive" style="max-width: 30rem;" class="mx-auto d-block" data-aos="fade-left" data-aos-duration="50000">
+			<hr class="my-4">
+
+			<p>Si vous souhaitez de plus amples informations sur les activités de l'<strong>ASDEC</strong>.</p>
+			<a class="btn btn-primary btn-lg" href="http://asdec.e-monsite.com/" role="button">En savoir plus</a>
+			<a class="btn btn-primary btn-lg" href="{{ path('app_contact_new')}}" role="button">Nous contacter</a>
+
+
+			<hr class="my-4">
+			<p>Vous souhaitez vous inscrire pour la première fois.</p>
+			<a class="btn btn-primary btn-lg" href="{{ path('app_register_member')}}" role="button">Cliquez-ici!</a>
+			<p class="mt-4">Si vous êtes déjà membre et que vous souhaitez renouveller votre abonnement, alors connectez-vous à votre
+				<a href=" {{ path('app_login')}} ">espace.</a>
+
+			</p>
+			{% if app.user %}
+
+				<hr class="my-4">
+				<p>Vous avez déjà un compte et vous souhaitez renouveller votre adhésion.</p>
+				<a class="btn btn-primary btn-lg" href="{{ path('home.index')}}" role="button">Cliquez-ici!
+				</a>
+			{% endif %}
+
+		</div>
+		{% if app.user %}
+
+
+			{# searchbar for the posts #}
+			<div class="container mt-4">
+				<h3>Articles</h3>
+				<div class="post-cards mt-4" data-post-cards-container style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between;align-items: stretch;align-content: space-around;"></div>
+
+				<template data-post-template>
+					<div class="card border-primary mb-3" style="width:300px;">
+
+
+						<div class="card-header bg-secondary" data-header></div>
+
+						<div class="card-body bg-light" data-body></div>
+
+					</div>
+				</template>
+
+
+			</div>
+
+
+			{# end #}
+			{# timeless post 	 #}
+			<div class="container my-5 d-flex align-items-end" data-aos="fade-left" data-aos-duration="50000">
+				<div class="row">
+					<a href="{{ path('app_post_new')}}" class="btn btn-primary mb-3" style="font-size: 30px;">Ecrire un article</a>
+
+					<div class="search-wrapper">
+						<label for="search">Recherchez votre article par auteur ou par mot</label>
+						<input type="search" id="search" data-search>
+					</div>
+
+
+					<div class="col-md-6 offset-md-3">
+						<h4 style="margin-left: 1.2rem;">Fil d'actualités</h4>
+						<ul class="timeline-3">
+							{% for post in posts|reverse %}
+								<li>
+									<a href="/posts/{{post.id}}">{{post.title}}</a>
+									<a href="/posts/{{post.id}}" class="float-end">{{post.author}}
+										-{{post.createdAt |date("d/m/Y")}}</a>
+									<p class="mt-2">{{post.content}}</p>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			{# end #}
+
+		</div>
+		<hr
+		class="my-4">
+		{# Presentation des goodies #}
+
+		<div class="container">
+			<a class="btn btn-primary btn-lg" href="{{ path('app_order_new')}}" role="button">Commander un objet publicitaire</a>
+
+			<div class="row mt-4">
+				{% for goodies in goodiess|reverse %}
+					<div class="col-md-4">
+						<div class="card">
+							<img src="{{ asset('uploads/') }}{{ goodies.picture }}" alt="{{ goodies.title }} ">
+
+
+							<div class="card-body">
+								<h5 class="card-title">{{goodies.title}}</h5>
+								<p class="card-text">Référence:
+									{{goodies.id}}</p>
+
+								<p class="card-text">Prix TTC:
+									{{goodies.price}}</p>
+								<p class="card-text">Taille:
+									{{goodies.size}}</p>
+								<p class="card-text">Couleur:
+									{{goodies.color}}</p>
+								<a href="{{ path('app_order_new')}}" class="btn btn-primary">Commander l'article</a>
+
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		{# fin des goodies #}
+		<hr class="my-4">
+		<h2>Autre présentation du mur d'actualité</h2>
+
+
+		<div class="container">
+			<a class="btn btn-primary btn-lg" href="{{ path('app_post_new')}}" role="button">Ecrire un article</a>
+
+
+			<div class="row mt-4">
+				{% for post in posts|reverse %}
+					<div class="col-md-4">
+						<div class="card">
+							<img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">{{post.title}}</h5>
+								<p class="card-text">{{post.content}}</p>
+								<p>{{post.author}}
+									-
+									{{post.createdAt |date("d/m/Y")}}</p>
+								<a href="/posts/{{post.id}}" class="btn btn-primary">Voir l'article</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+
+		</div>
+	</div>
+
+	<hr class="my-4">
+
+
+{% endblock %}
